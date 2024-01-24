@@ -1,0 +1,6 @@
+const USER_ROLE = {
+    ADMIN:"ADMIN", AUDIENCE:"AUDIENCE", CREATOR: "CREATOR"
+}
+
+
+module.exports = USER_ROLE
