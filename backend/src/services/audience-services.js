@@ -1,10 +1,10 @@
 const ApiResponse = require('../utils/api-response')
 
-async function createAudience(audience){
+async function registerAudience(audience){
 
 }
 
-async function updateAudience(audienceID, payload){
+async function updateAudienceById(audienceID, payload){
 
 }
 
@@ -16,10 +16,10 @@ async function getAudienceById(audienceID){
 
 }
 
-async function deleteAudience(audienceID){
+async function deleteAudienceById(audienceID){
 
 }
 
 module.exports={
-    createAudience, updateAudience, getAudienceList, getAudienceById, deleteAudience
+    registerAudience, updateAudienceById, getAudienceList, getAudienceById, deleteAudienceById
 }
