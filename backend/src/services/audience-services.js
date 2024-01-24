@@ -1,5 +1,6 @@
 const ApiResponse = require('../utils/api-response')
 const AudienceDb = require('../database/models/audienceDb');
+const UserDb = require('../database/models/userDb');
 
 async function registerAudience(){
     /* Write Code */
