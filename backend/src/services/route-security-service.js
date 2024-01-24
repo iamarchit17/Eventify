@@ -2,19 +2,15 @@ const JwtService = require('./jwt-service')
 const UserRole = require('../constants/role-constant')
 const ApiResponse = require('../utils/api-response')
 
-function autherizeRouteForSupperAdmin(req, res, next){
-    authUserRole(req, res, next, [UserRole.SUPPER_ADMIN])    
+function autherizeRouteForAdmin(req, res, next){
+    authUserRole(req, res, next, [UserRole.ADMIN])    
+}
+function autherizeRouteForCreator(req, res, next){
+    authUserRole(req, res, next, [UserRole.CREATOR,UserRole.ADMIN])    
 }
 
-function autherizeRouteForAdminUser(req, res, next){
-    authUserRole(req, res, next, [UserRole.SUPPER_ADMIN,UserRole.ADMIN])    
-}
-function autherizeRouteForBusinessUser(req, res, next){
-    authUserRole(req, res, next, [UserRole.BUSINESS_OWNER,UserRole.ADMIN, UserRole.SUPPER_ADMIN])    
-}
-
-function autherizeRouteForAttendant(req, res, next){
-    authUserRole(req, res, next, [UserRole.BUSINESS_OWNER,UserRole.ADMIN, UserRole.ATTENDANT, UserRole.SUPPER_ADMIN])    
+function autherizeRouteForAudience(req, res, next){
+    authUserRole(req, res, next, [UserRole.ADMIN, UserRole.AUDIENCE])    
 }
 
 function authUserRole(req, res, next, ...roles){
@@ -39,5 +35,5 @@ function authUserRole(req, res, next, ...roles){
     }
 }
 module.exports={
-    autherizeRouteForBusinessUser, autherizeRouteForAttendant, autherizeRouteForAdminUser,autherizeRouteForSupperAdmin
+    autherizeRouteForAdmin, autherizeRouteForCreator, autherizeRouteForAudience
 }
