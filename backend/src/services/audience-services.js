@@ -7,7 +7,7 @@ async function registerAudience(){
 }
 
 //requires authorisation for same user
-async function updateAudience(audienceId, payload, user){
+async function updateAudienceById(audienceId, payload, user){
     
     try {
         /*
@@ -89,5 +89,5 @@ async function deleteAudienceById(audienceID, user){
 }
 
 module.exports={
-    registerAudience, updateAudience, getAudienceList, getAudienceById, deleteAudienceById
+    registerAudience, updateAudienceById, getAudienceList, getAudienceById, deleteAudienceById
 }
