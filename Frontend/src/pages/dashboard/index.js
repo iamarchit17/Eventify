@@ -33,6 +33,7 @@ import avatar1 from '../../assets/images/users/avatar-1.png';
 import avatar2 from '../../assets/images/users/avatar-2.png';
 import avatar3 from '../../assets/images/users/avatar-3.png';
 import avatar4 from '../../assets/images/users/avatar-4.png';
+import EventCard from '../../components/EventCard';
 
 // avatar style
 const avatarSX = {
@@ -75,6 +76,7 @@ const DashboardDefault = () => {
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
+
       {/* row 1 */}
       <Grid item xs={12} sx={{ mb: -2.25 }}>
         <Typography variant="h5">Dashboard</Typography>
@@ -93,6 +95,7 @@ const DashboardDefault = () => {
       </Grid>
 
       <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
+      <EventCard />
 
       {/* row 2 */}
       <Grid item xs={12} md={7} lg={8}>
