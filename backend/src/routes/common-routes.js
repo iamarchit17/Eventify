@@ -6,7 +6,7 @@ const commonContorller = require('../controllers/common-controller')
 const RouteSecurity = require('../services/route-security-service')
 
 //login user
-route.post('/', commonContorller.userLogin)
+route.post('/login', commonContorller.userLogin)
 
 //get categories
 route.get('/categories', commonContorller.getCategories)
