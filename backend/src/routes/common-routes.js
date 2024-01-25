@@ -9,9 +9,9 @@ const RouteSecurity = require('../services/route-security-service')
 route.post('/', commonContorller.userLogin)
 
 //get categories
-route.get('/', commonContorller.getCategories)
+route.get('/categories', commonContorller.getCategories)
 
 //get cities
-route.get('/', commonContorller.getCities)
+route.get('/cities', commonContorller.getCities)
 
 module.exports = route
