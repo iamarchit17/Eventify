@@ -2,7 +2,7 @@ const express = require('express');
 
 const route = express.Router()
 
-const creatorController = require('../controller/creator-controller')
+const creatorController = require('../controllers/creator-controller')
 const RouteSecurity = require('../services/route-security-service')
 
 //register creator
