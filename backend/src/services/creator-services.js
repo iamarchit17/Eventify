@@ -1,9 +1,26 @@
 const ApiResponse = require('../utils/api-response')
 const CreatorDb = require('../database/models/creatorDb');
 const UserDb = require('../database/models/userDb');
+const AudienceService = require('./audience-services')
+const UserRole = require('../constants/role-constant')
+async function registerCreator(payload){
+    try{
+        console.log(payload.email, payload.password)
+        console.log(payload)
+        user = await AudienceService.createUser(payload.email, payload.password,UserRole.CREATOR)
+        console.log(user);
 
-async function registerCreator(creator){
+        payload.isActive = false
+        payload.uid = user._id
 
+        const creator = new CreatorDb(payload)
+        console.log(creator);
+        const res = await creator.save();
+        console.log('res',res);
+        return new ApiResponse(201, 'Creator Registered', null, res)
+    } catch(error){
+        return new ApiResponse(500, 'Exception While Creating Creator!.', null, error)
+    }
 }
 
 //requires authorisation for same user

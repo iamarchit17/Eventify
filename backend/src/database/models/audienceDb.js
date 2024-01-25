@@ -2,9 +2,12 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const audienceDbSchema = new Schema({
-    profilePhoto: {
+    uid: {
         type: String, 
         required: true
+    },
+    profilePhoto: {
+        type: String, 
     },
     name: {
         type: String, 

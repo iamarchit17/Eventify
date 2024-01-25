@@ -1,9 +1,44 @@
 const ApiResponse = require('../utils/api-response')
 const AudienceDb = require('../database/models/audienceDb');
 const UserDb = require('../database/models/userDb');
+const UserRole = require('../constants/role-constant')
 
-async function registerAudience(){
-    /* Write Code */
+
+async function createUser(email, password, role){
+    let user = await UserDb.findOne({email: email})
+    if(user){
+        return new ApiResponse(400, 'User Is Already Registered With Provided User Email', null, null)
+    }
+    const userDb = new UserDb({
+        email : email,
+        password : password,
+        role: role
+    })
+    console.log(userDb);
+    const res = await userDb.save();
+    return res;
+}
+
+
+async function registerAudience(payload){
+
+    try{
+        console.log(payload.email, payload.password)
+        console.log(payload)
+        user = await createUser(payload.email, payload.password,UserRole.AUDIENCE)
+        console.log(user);
+
+        payload.myBookings = []
+        payload.uid = user._id
+        //console.log('payload' + payload)
+        const audience = new AudienceDb(payload)
+        console.log(audience);
+        const res = await audience.save();
+        console.log('res',res);
+        return new ApiResponse(201, 'Audience Registered', null, res)
+    } catch(error){
+        return new ApiResponse(500, 'Exception While Creating Audience!.', null, error)
+    }
 }
 
 //requires authorisation for same user
@@ -89,5 +124,5 @@ async function deleteAudienceById(audienceID, user){
 }
 
 module.exports={
-    registerAudience, updateAudienceById, getAudienceList, getAudienceById, deleteAudienceById
+    registerAudience, updateAudienceById, getAudienceList, getAudienceById, deleteAudienceById, createUser
 }

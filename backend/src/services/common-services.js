@@ -23,15 +23,18 @@ async function userLogin(loginDetails){
                         //let AudienceDb =await AudienceDb.findOneAndUpdate({audienceId: userDb.userId}, {new : true})
                         //console.log(attendantDb)
                         let audience = await AudienceDb.findOne({email:{$eq: userDb.email}})
-                        userLoginResponse = audience                     
+                        userLoginResponse = audience
+                        userLoginResponse.role = UserRole.AUDIENCE                     
                         break;
                     case UserRole.CREATOR:
                         let creator = await CreatorDb.findOne({email:{$eq: userDb.email}})
-                        userLoginResponse = creator                  
+                        userLoginResponse = creator  
+                        userLoginResponse.role = UserRole.CREATOR                
                         break;              
                     default:
                         let admin = userDb
                         userLoginResponse = admin 
+                        userLoginResponse.role = UserRole.ADMIN
                         break;
                 }
                 return new ApiResponse(200, `User logged in successfully.`, null, userLoginResponse)
