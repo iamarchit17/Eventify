@@ -7,8 +7,23 @@ function userLogin(req, res, next){
     CommonService.userLogin(req.body)
         .then(result=>{
             console.log("userLogin  Common Controller Result : ",result)
-            res.status(result.statusCode)
-            res.send(result)
+            if(result.statusCode === 200){
+                JwtService.generateJwt(result.data)
+                    .then(token=>{
+                        res.setHeader('Access-Control-Expose-Headers','authtoken')
+                        res.setHeader('authtoken', 'Bearer '+ token)
+                        res.status(result.statusCode)
+                        res.send(result)
+                    })
+                    .catch(err=>{
+                        result = new ApiResponse(500, 'Error in generating access token!', null, null)
+                        res.status(result.statusCode)
+                        res.send(result)
+                    })
+            }else{
+                res.status(result.statusCode)
+                res.send(result)
+            }
         })
 }
 
