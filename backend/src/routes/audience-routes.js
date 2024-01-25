@@ -2,7 +2,7 @@ const express = require('express');
 
 const route = express.Router()
 
-const audienceController = require('../controller/audience-controller')
+const audienceController = require('../controllers/audience-controller')
 const RouteSecurity = require('../services/route-security-service')
 
 //register audience

@@ -2,7 +2,7 @@ const express = require('express');
 
 const route = express.Router()
 
-const eventController = require('../controller/event-controller')
+const eventController = require('../controllers/event-controller')
 const RouteSecurity = require('../services/route-security-service')
 
 //register event

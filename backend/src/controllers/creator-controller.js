@@ -51,3 +51,7 @@ function deleteCreatorById(req, res, next){
             res.send(result)
         })
 }
+
+module.exports ={
+    registerCreator, updateCreatorById,getCreatorList ,getCreatorById ,deleteCreatorById
+}
