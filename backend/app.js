@@ -16,8 +16,8 @@ app.use(bodyparser.urlencoded({ extended : true}))
 
 app.use('/api/common', require('./src/routes/common-routes'))
 // app.use('/api/admin', require('./src/routes/admin-routes'))
-// app.use('/api/creator', require('./src/routes/creator-routes'))
-// app.use('/api/audience', require('./src/routes/audience-routes'))
+app.use('/api/creator', require('./src/routes/creator-routes'))
+app.use('/api/audience', require('./src/routes/audience-routes'))
 // app.use('/api/event', require('./src/routes/event-routes'))
 
 MongodbConfig.connectMongoDb()
