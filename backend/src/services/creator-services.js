@@ -1,10 +1,10 @@
 const ApiResponse = require('../utils/api-response')
 
-async function createCreator(creator){
+async function registerCreator(creator){
 
 }
 
-async function updateCreator(creatorID, payload){
+async function updateCreatorById(creatorID, payload){
 
 }
 
@@ -18,10 +18,10 @@ async function getCreatorById(creatorID){
 
 }
 
-async function deleteCreator(creatorID){
+async function deleteCreatorById(creatorID){
 
 }
 
 module.exports={
-    createCreator, updateCreator, getCreatorList, getCreatorById, deleteCreator
+    registerCreator, updateCreatorById, getCreatorList, getCreatorById, deleteCreatorById
 }

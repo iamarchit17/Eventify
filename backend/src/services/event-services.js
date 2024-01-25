@@ -1,10 +1,10 @@
 const ApiResponse = require('../utils/api-response')
 
-async function createEvent(event){
+async function registerEvent(event){
 
 }
 
-async function updateEvent(eventID, payload){
+async function updateEventById(eventID, payload){
 
 }
 
@@ -17,10 +17,10 @@ async function getEventById(eventID){
 
 }
 
-async function deleteEvent(eventID){
+async function deleteEventById(eventID){
 
 }
 
 module.exports={
-    createEvent, updateEvent, getEventList, getEventById, deleteEvent
+    registerEvent, updateEventById, getEventList, getEventById, deleteEventById
 }
