@@ -2,7 +2,7 @@ const express = require('express');
 
 const route = express.Router()
 
-const commonContorller = require('../controller/common-controller')
+const commonContorller = require('../controllers/common-controller')
 const RouteSecurity = require('../services/route-security-service')
 
 //login user
