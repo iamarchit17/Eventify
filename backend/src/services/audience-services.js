@@ -14,7 +14,7 @@ async function updateAudienceById(audienceId, payload, user){
         //Write Code for authenticating the user
         //Authorisation for same audience is required
 
-        if (user.audienceID !== audienceId) {
+        if (user.audienceId !== audienceId) {
             return new ApiResponse(401, 'Unauthorized: User Cannot Update This Audience.', null, null);
         }
 
@@ -34,15 +34,15 @@ async function updateAudienceById(audienceId, payload, user){
 
 //requires admin authorisation
 async function getAudienceList(user){
-    /*
-        Write code for authorisation
-    */
     try {
+        /*
+            Write code for authorisation
+        */
         result = await AttendantDb.find({})
     } catch (error) {
         return new ApiResponse(500, 'Exception While Fetching Audience List!.', null, err.message)
     }
-    //TODO : update result for paggination link 
+    
     let listData = {count: result.length, data: result} 
     return new ApiResponse(200, "Fetched Attendant list", null, listData)
 }
@@ -60,7 +60,7 @@ async function getAudienceById(audienceID /*, user*/ ){
         
         return new ApiResponse(200, "Audience fetched Successfully.", null, audience)  
     } catch (error) {
-        return new ApiResponse(500, 'Exception While updating Audience !.', null, error)
+        return new ApiResponse(500, 'Exception While updating Audience!', null, error)
     }
 }
 
@@ -84,7 +84,7 @@ async function deleteAudienceById(audienceID, user){
         await UserDb.deleteOne({userId:{$eq: audienceId}})
         return new ApiResponse(200, "Audience Deleted Successfully.", null, payload)  
     } catch (error) {
-        return new ApiResponse(500, 'Exception While Deleting Audience!.', null, error)
+        return new ApiResponse(500, 'Exception While Deleting Audience!', null, error)
     }
 }
 
