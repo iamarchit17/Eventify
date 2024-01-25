@@ -24,6 +24,8 @@ function updateCreatorById(req, res, next){
 
 function getCreatorList(req, res, next){
     console.log("Controller received request ", req.body);
+    console.log('request recived',req);
+    //id, payload, user
     Creator.getCreatorList(req.body)
         .then(result=>{
             console.log("getCreatorList  Creator Controller Result : ",result)
