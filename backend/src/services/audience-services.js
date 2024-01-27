@@ -73,13 +73,13 @@ async function getAudienceList(user){
         /*
             Write code for authorisation
         */
-        result = await AttendantDb.find({})
+        result = await AudienceDb.find({})
     } catch (error) {
         return new ApiResponse(500, 'Exception While Fetching Audience List!.', null, err.message)
     }
     
     let listData = {count: result.length, data: result} 
-    return new ApiResponse(200, "Fetched Attendant list", null, listData)
+    return new ApiResponse(200, "Fetched Audience List", null, listData)
 }
 
 // ask if any authorisation is required.
