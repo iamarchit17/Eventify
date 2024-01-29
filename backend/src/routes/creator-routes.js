@@ -15,7 +15,7 @@ route.get('/', RouteSecurity.autherizeRouteForAdmin, creatorController.getCreato
 route.put('/:creatorId', RouteSecurity.autherizeRouteForCreator, creatorController.updateCreatorById)
 
 //get creator by Id
-route.get('/:creatorId', creatorController.getCreatorById)
+route.get('/:creatorId', RouteSecurity.autherizeRouteForCreator, creatorController.getCreatorById)
 
 //delete creator by Id
 route.delete('/:creatorId', RouteSecurity.autherizeRouteForCreator, creatorController.deleteCreatorById)

@@ -32,18 +32,15 @@ async function registerCreator(payload){
 //requires authorisation for same user
 async function updateCreatorById(creatorId, payload, user){
     try {
-        /*
-        //Write Code for authenticating the user
-        //Authorisation for same user is required
-
-        if (user.creatorId !== creatorId) {
-            return new ApiResponse(401, 'Unauthorized: User Cannot Update This Created.', null, null);
-        }
-
-        */
+        
         let creator = await CreatorDb.findOne({_id:{$eq: creatorId}})
         if(!creator)
             return new ApiResponse(400, 'Creator Not Registered', null, null)
+
+        if(creator._id != user._id){
+            return new ApiResponse(401, "Unauthorised: You cannot update other creator details!")
+        }
+
         payload.creatorId = creatorId
         delete payload._id
         delete payload.email
@@ -60,9 +57,6 @@ async function updateCreatorById(creatorId, payload, user){
 //requires authorisation for admin
 async function getCreatorList(user){ 
     try {
-        /*
-            Write code for authorisation
-        */
         result = await CreatorDb.find({})
     } catch (error) {
         return new ApiResponse(500, 'Exception While Fetching Creator List!.', null, err.message)
@@ -75,13 +69,14 @@ async function getCreatorList(user){
 //requires authorisation for same creator and admin
 async function getCreatorById(creatorId, user){
     try {
-        /*
-            Write code for any kind of authorisation (if required)
-        */
         let creator = await CreatorDb.findOne({_id:{$eq: creatorId}})
-        console.log("Creator 1000" + creator)
+        
         if(!creator)
             return new ApiResponse(400, 'Creator Not Found.', null, null)
+
+        if(creator._id != user._id){
+            return new ApiResponse(401, "Unauthorised: You cannot access other creator details!")
+        }
         
         return new ApiResponse(200, "Creator Fetched Successfully.", null, creator)  
     } catch (error) {
@@ -91,20 +86,15 @@ async function getCreatorById(creatorId, user){
 
 async function deleteCreatorById(creatorId, user){
     try {
-        /*
-        //Write Code for authenticating the user
-        //Authorisation for same creator is required
-
-        if (user.creatorID !== creatorId) {
-            return new ApiResponse(401, 'Unauthorized: User Cannot Update This Creator.', null, null);
-        }
-
-        */
         let creator = await CreatorDb.findOne({_id:{$eq: creatorId}})
         
         if(!creator)
             return new ApiResponse(400, 'Creator Not Found', null, null)
         
+        if(creator._id != user._id){
+            return new ApiResponse(401, "Unauthorised: You cannot delete other creator details!")
+        }
+
         await CreatorDb.deleteOne({_id:{$eq: creatorId}})
         await UserDb.deleteOne({_id:{$eq: creator.uid}})
         return new ApiResponse(200, "Creator Deleted Successfully.", null, null)  

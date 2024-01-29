@@ -50,20 +50,15 @@ async function registerAudience(payload){
 async function updateAudienceById(audienceId, payload, user){
     
     try {
-        /*
-        //Write Code for authenticating the user
-        //Authorisation for same audience is required
-
-        if (user.audienceId !== audienceId) {
-            return new ApiResponse(401, 'Unauthorized: User Cannot Update This Audience.', null, null);
-        }
-
-        */
-
         let audience = await AudienceDb.findOne({_id:{$eq: audienceId}})
-        console.log("audience 1000 " + audience)
+        
         if(!audience)
             return new ApiResponse(400, 'Audience Not Registered', null, null)
+
+        if(audience._id != user._id){
+            return new ApiResponse(401, 'Unauthorised: You cannot access other audience details', null, null)
+        }
+
         payload.audienceId = audienceId
         delete payload._id
         delete payload.email
@@ -79,9 +74,6 @@ async function updateAudienceById(audienceId, payload, user){
 //requires admin authorisation
 async function getAudienceList(user){
     try {
-        /*
-            Write code for authorisation
-        */
         result = await AudienceDb.find({})
     } catch (error) {
         return new ApiResponse(500, 'Exception While Fetching Audience List!.', null, err.message)
@@ -95,12 +87,15 @@ async function getAudienceList(user){
 async function getAudienceById(audienceId, user){
     try {
 
-        /*
-            Write code for any kind of authorisation (if required)
-        */
         let audience = await AudienceDb.findOne({_id:{$eq: audienceId}})
+
         if(!audience)
             return new ApiResponse(400, 'Audience Not Found.', null, null)
+
+        
+        if(audience._id != user._id){
+            return new ApiResponse(401, 'Unauthorised: You cannot access other audience details', null, null)
+        }
         
         return new ApiResponse(200, "Audience fetched Successfully.", null, audience)  
     } catch (error) {
@@ -111,19 +106,15 @@ async function getAudienceById(audienceId, user){
 //requires same user authorisation
 async function deleteAudienceById(audienceId, user){
     try {
-        /*
-        //Write Code for authenticating the user
-        //Authorisation for same audience is required
-
-        if (user.audienceID !== audienceId) {
-            return new ApiResponse(401, 'Unauthorized: User Cannot Update This Audience.', null, null);
-        }
-
-        */
+        
         let audience = await AudienceDb.findOne({_id:{$eq: audienceId}})
         if(!audience)
             return new ApiResponse(400, 'Audience Not Found', null, null)
         
+        if(audience._id != user._id){
+            return new ApiResponse(401, 'Unauthorised: You cannot delete other audience details', null, null)
+        }   
+
         await AudienceDb.deleteOne({_id:{$eq: audienceId}})
         await UserDb.deleteOne({_id:{$eq: audience.uid}})
         return new ApiResponse(200, "Audience Deleted Successfully.", null, null)  
