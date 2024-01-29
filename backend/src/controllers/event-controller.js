@@ -3,7 +3,7 @@ const EventService = require('../services/event-services')
 
 function registerEvent(req, res, next){
     console.log("Controller received request ", req.body);
-    EventService.registerEvent(req.body,null)
+    EventService.registerEvent(req.body,req.user)
         .then(result=>{
             console.log("registerEvent Event Controller Result : ",result)
             res.status(result.statusCode)

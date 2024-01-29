@@ -16,9 +16,10 @@ async function registerEvent(payload, user){
             venue: payload.venue,
             description: payload.description,
             capacity: payload.capacity,
-            participants: payload.participants,
+            participants: [],
             charges: payload.charges,
-            tnc: payload.tnc
+            tnc: payload.tnc,
+            cid : user._id
         })
         console.log( "The event information is :" ,event);
         const res = await event.save();
@@ -59,6 +60,7 @@ async function updateEventById(eventId, payload, user){
 async function getEventList(){ 
     try {
         result = await EventDb.find({})
+        return new ApiResponse(200, "All events fetched", null, result) 
     } catch (error) {
         return new ApiResponse(500, 'Exception While Fetching Event List!.', null, err.message)
     }
