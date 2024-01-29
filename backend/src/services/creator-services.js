@@ -3,11 +3,17 @@ const CreatorDb = require('../database/models/creatorDb');
 const UserDb = require('../database/models/userDb');
 const AudienceService = require('./audience-services')
 const UserRole = require('../constants/role-constant')
+
 async function registerCreator(payload){
     try{
         console.log(payload.email, payload.password)
         console.log(payload)
         user = await AudienceService.createUser(payload.email, payload.password,UserRole.CREATOR)
+
+        if(user.statusCode == 400){
+            console.log("user al", user)
+            return user
+        }
         console.log(user);
 
         payload.isActive = false
