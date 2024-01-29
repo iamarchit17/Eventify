@@ -13,8 +13,9 @@ function registerCreator(req, res, next){
 }
 
 function updateCreatorById(req, res, next){
-    console.log("Controller received request ", req.body);
-    Creator.updateCreatorById(req.body)
+    console.log("Controller received request ", req.body, req.params);
+    
+    Creator.updateCreatorById(req.params.creatorId, req.body, null)
         .then(result=>{
             console.log("updateCreatorById  Creator Controller Result : ",result)
             res.status(result.statusCode)
@@ -35,8 +36,8 @@ function getCreatorList(req, res, next){
 }
 
 function getCreatorById(req, res, next){
-    console.log("Controller received request ", req.body);
-    Creator.getCreatorById(req.body)
+    console.log("Controller received request ", req.params);
+    Creator.getCreatorById(req.params.creatorId, null)
         .then(result=>{
             console.log("getCreatorById  Creator Controller Result : ",result)
             res.status(result.statusCode)
@@ -45,8 +46,8 @@ function getCreatorById(req, res, next){
 }
 
 function deleteCreatorById(req, res, next){
-    console.log("Controller received request ", req.body);
-    Creator.deleteCreatorById(req.body)
+    console.log("Controller received request ", req.body, req.params);
+    Creator.deleteCreatorById(req.params.creatorId, null)
         .then(result=>{
             console.log("deleteCreatorById  Creator Controller Result : ",result)
             res.status(result.statusCode)
