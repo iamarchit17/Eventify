@@ -7,7 +7,7 @@ import { AppBar, IconButton, Toolbar, useMediaQuery } from '@mui/material';
 // project import
 import AppBarStyled from './AppBarStyled';
 import HeaderContent from './HeaderContent';
-
+import Logo from '../../../assets/Logo.png'
 // assets
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
@@ -22,7 +22,8 @@ const Header = ({ open, handleDrawerToggle }) => {
 
   // common header
   const mainHeader = (
-    <Toolbar>
+    <Toolbar style={{backgroundColor: '#252E3B'}}>
+      <img src={Logo} width={84} height={42}/>
       {/* <IconButton
         disableRipple
         aria-label="open drawer"
@@ -43,7 +44,7 @@ const Header = ({ open, handleDrawerToggle }) => {
     color: 'inherit',
     elevation: 0,
     sx: {
-      borderBottom: `1px solid ${theme.palette.divider}`
+      // borderBottom: `1px solid ${theme.palette.divider}`
       // boxShadow: theme.customShadows.z1
     }
   };
