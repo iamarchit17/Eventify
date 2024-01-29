@@ -47,9 +47,56 @@ async function deleteAudienceByIdAPI(audienceID){
 }
 
 
+//creator
+async function registerCreatorAPI(creator) {
+    const response  = await axiosInstance.post(BaseURL+'/api/creator',creator);
+    console.log("The response of register creator API" ,response)
+    return response
+}
+
+async function getCreatorByIdAPI(creatorID){
+    const response  = await axiosInstance.get(BaseURL+'/api/creator/' + creatorID);
+    console.log("The response of get creator by Id API" ,response)
+    return response
+}
+
+async function getCreatorListAPI(){
+    const response  = await axiosInstance.get(BaseURL+'/api/creator/');
+    console.log("The response of get list creator API" ,response)
+    return response
+}
+
+async function updateCreatorByIdAPI(creatorID){
+    const response  = await axiosInstance.put(BaseURL+'/api/audience/'+ audienceID);
+    console.log("The response of get list audience API" ,response)
+    return response
+}
+
+async function deleteCreatorByIdAPI(creatorID){
+    const response  = await axiosInstance.delete(BaseURL+'/api/audience/'+ creatorID);
+    console.log("The response of delete creator by id  API" ,response)
+    return response
+}
+
+//events
+
+async function registerEventAPI(event) {
+    const response  = await axiosInstance.post(BaseURL+'/api/event',creator);
+    console.log("The response of register creator API" ,response)
+    return response
+}
+async function getEventListAPI() {
+    const response  = await axiosInstance.get(BaseURL+'/api/event/');
+    console.log("The response of getEventListAPI" ,response)
+    return response
+} 
+
+
+
 
 
 export {
-    loginAPI ,categoriesAPI , citiesAPI ,registerAudienceAPI,getAudienceByIdAPI , getAudienceListAPI , updateAudienceByIdAPI ,deleteAudienceByIdAPI
+    loginAPI ,categoriesAPI , citiesAPI ,registerAudienceAPI,getAudienceByIdAPI , getAudienceListAPI , updateAudienceByIdAPI ,deleteAudienceByIdAPI,
+    registerCreatorAPI ,getCreatorByIdAPI ,getCreatorListAPI ,updateCreatorByIdAPI,deleteCreatorByIdAPI
 }
 
