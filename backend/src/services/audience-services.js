@@ -26,13 +26,18 @@ async function registerAudience(payload){
         console.log(payload.email, payload.password)
         console.log(payload)
         user = await createUser(payload.email, payload.password,UserRole.AUDIENCE)
-        console.log(user);
+        
+        if(user.statusCode == 400) {
+            return user;
+        }
+        
+        //console.log("print statetment 1" + user);
 
         payload.myBookings = []
         payload.uid = user._id
         //console.log('payload' + payload)
         const audience = new AudienceDb(payload)
-        console.log(audience);
+        //console.log("print statetment 2" + audience);
         const res = await audience.save();
         console.log('res',res);
         return new ApiResponse(201, 'Audience Registered', null, res)
@@ -54,13 +59,17 @@ async function updateAudienceById(audienceId, payload, user){
         }
 
         */
-        let audience = await AudienceDb.findOne({audienceId:{$eq: audienceId}})
+
+        let audience = await AudienceDb.findOne({_id:{$eq: audienceId}})
+        console.log("audience 1000 " + audience)
         if(!audience)
             return new ApiResponse(400, 'Audience Not Registered', null, null)
         payload.audienceId = audienceId
         delete payload._id
+        delete payload.email
+        console.log(payload)
 
-        await AudienceDb.findOneAndUpdate({_id:audience._id}, payload)
+        await AudienceDb.findOneAndUpdate({_id:audienceId}, payload)
         return new ApiResponse(200, "Audience Updated Successfully.", null, payload)  
     } catch (error) {
         return new ApiResponse(500, 'Exception While Updating Audience!.', null, error)
@@ -83,13 +92,13 @@ async function getAudienceList(user){
 }
 
 // ask if any authorisation is required.
-async function getAudienceById(audienceID /*, user*/ ){
+async function getAudienceById(audienceId, user){
     try {
 
         /*
             Write code for any kind of authorisation (if required)
         */
-        let audience = await AudienceDb.findOne({audienceId:{$eq: audienceId}})
+        let audience = await AudienceDb.findOne({_id:{$eq: audienceId}})
         if(!audience)
             return new ApiResponse(400, 'Audience Not Found.', null, null)
         
@@ -99,8 +108,8 @@ async function getAudienceById(audienceID /*, user*/ ){
     }
 }
 
-//requires same user authrisation
-async function deleteAudienceById(audienceID, user){
+//requires same user authorisation
+async function deleteAudienceById(audienceId, user){
     try {
         /*
         //Write Code for authenticating the user
@@ -111,13 +120,13 @@ async function deleteAudienceById(audienceID, user){
         }
 
         */
-        let audience = await AudienceDb.findOne({audienceId:{$eq: audienceId}})
+        let audience = await AudienceDb.findOne({_id:{$eq: audienceId}})
         if(!audience)
             return new ApiResponse(400, 'Audience Not Found', null, null)
         
-        await AudienceDb.deleteOne({audienceId:{$eq: audienceId}})
-        await UserDb.deleteOne({userId:{$eq: audienceId}})
-        return new ApiResponse(200, "Audience Deleted Successfully.", null, payload)  
+        await AudienceDb.deleteOne({_id:{$eq: audienceId}})
+        await UserDb.deleteOne({_id:{$eq: audience.uid}})
+        return new ApiResponse(200, "Audience Deleted Successfully.", null, null)  
     } catch (error) {
         return new ApiResponse(500, 'Exception While Deleting Audience!', null, error)
     }
