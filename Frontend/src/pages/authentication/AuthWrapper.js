@@ -14,37 +14,28 @@ import AuthBackground from '../../assets/images/auth/AuthBackground';
 // ==============================|| AUTHENTICATION - WRAPPER ||============================== //
 
 const AuthWrapper = ({ children }) => (
-  <Box sx={{ minHeight: '100vh' }}>
+  <Box sx={{ minHeight: '100vh', backgroundColor: '#252E3B' }}>
     <AuthBackground />
-    <Grid
-      container
-      direction="column"
-      justifyContent="center"
-      sx={{
-        minHeight: '100vh'
-      }}
-    >
-      <Grid item xs={12} sx={{ width: '50%' }}>
+    <div style={{display: 'flex'}}>
+      <Grid item xs={12} className='col-md-6' sx={{ width: '50%' }}>
         <img src={loginFrame} width={'100%'} />
       </Grid>
-      <Grid item xs={12} sx={{width: '50%'}}>
+
+      <Grid item xs={12} className='col-md-6' sx={{width: '50%'}}>
         <Grid
           item
           xs={12}
           container
           justifyContent="center"
           alignItems="center"
-          sx={{ minHeight: { xs: 'calc(100vh - 134px)', md: 'calc(100vh - 112px)' } }}
+          sx={{ minHeight: '100vh' }}
         >
           <Grid item>
             <AuthCard>{children}</AuthCard>
           </Grid>
         </Grid>
       </Grid>
-      {/* <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-        <AuthFooter />
-      </Grid> */}
-    </Grid>
+    </div>
   </Box>
 );
 
