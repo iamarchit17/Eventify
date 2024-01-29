@@ -3,7 +3,7 @@ const EventService = require('../services/event-services')
 
 function registerEvent(req, res, next){
     console.log("Controller received request ", req.body);
-    Creator.registerEvent(req.body)
+    EventService.registerEvent(req.body,null)
         .then(result=>{
             console.log("registerEvent Event Controller Result : ",result)
             res.status(result.statusCode)
@@ -12,7 +12,7 @@ function registerEvent(req, res, next){
 }
 function updateEventById(req, res, next){
     console.log("Controller received request ", req.body);
-    Creator.updateEventById(req.body)
+    EventService.updateEventById(req.body)
         .then(result=>{
             console.log("updateEventById Event Controller Result : ",result)
             res.status(result.statusCode)
@@ -22,7 +22,7 @@ function updateEventById(req, res, next){
 
 function getEventList(req, res, next){
     console.log("Controller received request ", req.body);
-    Creator.getEventList(req.body)
+    EventService.getEventList(req.body)
         .then(result=>{
             console.log("getEventList Event Controller Result : ",result)
             res.status(result.statusCode)
@@ -32,7 +32,7 @@ function getEventList(req, res, next){
 
 function getEventById(req, res, next){
     console.log("Controller received request ", req.body);
-    Creator.getEventById(req.body)
+    EventService.getEventById(req.body)
         .then(result=>{
             console.log("getEventById Event Controller Result : ",result)
             res.status(result.statusCode)
@@ -42,7 +42,7 @@ function getEventById(req, res, next){
 
 function deleteEventById(req, res, next){
     console.log("Controller received request ", req.body);
-    Creator.deleteEventById(req.body)
+    EventService.deleteEventById(req.body)
         .then(result=>{
             console.log("deleteEventById Event Controller Result : ",result)
             res.status(result.statusCode)

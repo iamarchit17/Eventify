@@ -30,7 +30,7 @@ const eventSchema = new Schema({
         type: String,
         required: true,
     },
-    capcity: {
+    capacity: {
         type: Number,
         required: true,
     },
@@ -48,6 +48,6 @@ const eventSchema = new Schema({
     }
 }, {timestamps: true});
 
-const event = mongoose.model('event', eventSchema);
+const eventDb = mongoose.model('event', eventSchema);
 
-module.exports = event;
+module.exports = eventDb;
