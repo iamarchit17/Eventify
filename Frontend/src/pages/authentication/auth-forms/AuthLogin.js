@@ -10,7 +10,7 @@ import {
 import AnimateButton from '../../../components/@extended/AnimateButton';
 import { useNavigate } from 'react-router-dom';
 import MainRoutes from '../../../routes/MainRoutes';
-
+import { loginAPI } from '../../../apis';
 const AuthLogin = () => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
@@ -42,20 +42,12 @@ const AuthLogin = () => {
         console.log('fandle pass');
         setErrorMsg('');
         setMessage('');
-        navigate('/');
-        /*
+        // navigate('/');
+        
         try {
             //write login api here
-            // const response = await axios.post(api+'api/commons/login', {"mobileNo": email,"password": password });
-            // <Alert severity="success">{response.data.message}</Alert>
-            // const { token } = response.data;
-            const response = {};
-            console.log({"email": email,"password": password });
-            const token = response.headers.auth;
-            localStorage.clear();
-            localStorage.setItem('token', token);
-            console.log('token',token);
-            localStorage.setItem('user', JSON.stringify(response.data.data));
+            const response = await loginAPI(email,password);
+            console.log('api reposnse', response);
             if(response.data.data)
             {
                 console.log(response.data.data.role);
@@ -73,7 +65,7 @@ const AuthLogin = () => {
             setErrorMsg(error.response.data.message);
             console.error(error.response.data.message);
         }
-        */
+        
     };
 
     return (
