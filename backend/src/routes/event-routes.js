@@ -6,7 +6,8 @@ const eventController = require('../controllers/event-controller')
 const RouteSecurity = require('../services/route-security-service')
 
 //register event
-route.post('/', RouteSecurity.autherizeRouteForCreator, eventController.registerEvent)
+// route.post('/', RouteSecurity.autherizeRouteForCreator, eventController.registerEvent)
+route.post('/',  eventController.registerEvent)
 
 //get list of event
 route.get('/', eventController.getEventList)

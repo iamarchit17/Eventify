@@ -1,9 +1,34 @@
 const ApiResponse = require('../utils/api-response')
 const EventDb = require('../database/models/eventDb')
+const eventDb = require('../database/models/eventDb')
 
 //requires authorisation for creator
 async function registerEvent(payload, user){
-    
+
+    try{
+        console.log("The payload is " ,payload)
+        const event = new eventDb({
+            name : payload.name,
+            category: payload.category,
+            coverImage: payload.coverImage,
+            date: payload.date,
+            duration: payload.duration,
+            venue: payload.venue,
+            description: payload.description,
+            capacity: payload.capacity,
+            participants: payload.participants,
+            charges: payload.charges,
+            tnc: payload.tnc
+        })
+        console.log( "The event information is :" ,event);
+        const res = await event.save();
+        console.log("Saved the event.")
+        console.log('res is ',res)
+        return new ApiResponse(201, 'Event Registered', null, res)
+    }
+    catch (error){
+        return new ApiResponse(500, 'Exception While Creating Event!.', null, error)
+    }
 }
 
 //requires authorisation for event creator
