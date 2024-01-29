@@ -68,7 +68,7 @@ async function getCreatorListAPI(){
 
 async function updateCreatorByIdAPI(creatorID){
     const response  = await axiosInstance.put(BaseURL+'/api/audience/'+ audienceID);
-    console.log("The response of get list audience API" ,response)
+    console.log("The response of get list creator API" ,response)
     return response
 }
 
@@ -81,15 +81,35 @@ async function deleteCreatorByIdAPI(creatorID){
 //events
 
 async function registerEventAPI(event) {
-    const response  = await axiosInstance.post(BaseURL+'/api/event',creator);
-    console.log("The response of register creator API" ,response)
+    const response  = await axiosInstance.post(BaseURL+'/api/event',event);
+    console.log("The response of register Event API" ,response)
     return response
 }
+
 async function getEventListAPI() {
     const response  = await axiosInstance.get(BaseURL+'/api/event/');
     console.log("The response of getEventListAPI" ,response)
     return response
 } 
+
+async function updateEventByIdAPI(eventID){
+    const response  = await axiosInstance.put(BaseURL+'/api/event/'+ eventID);
+    console.log("The response of get list event API" ,response)
+    return response
+}
+
+async function getEventById(eventID){
+    const response  = await axiosInstance.get(BaseURL+'/api/event/' + eventID);
+    console.log("The response of get event by Id API" ,response)
+    return response
+}
+
+async function deleteEventByIdAPI(eventID){
+    const response  = await axiosInstance.delete(BaseURL+'/api/event/'+ eventID);
+    console.log("The response of delete event by id  API" ,response)
+    return response
+}
+
 
 
 
@@ -97,6 +117,6 @@ async function getEventListAPI() {
 
 export {
     loginAPI ,categoriesAPI , citiesAPI ,registerAudienceAPI,getAudienceByIdAPI , getAudienceListAPI , updateAudienceByIdAPI ,deleteAudienceByIdAPI,
-    registerCreatorAPI ,getCreatorByIdAPI ,getCreatorListAPI ,updateCreatorByIdAPI,deleteCreatorByIdAPI
+    registerCreatorAPI ,getCreatorByIdAPI ,getCreatorListAPI ,updateCreatorByIdAPI,deleteCreatorByIdAPI ,registerEventAPI , getEventListAPI , updateEventByIdAPI , getEventById ,deleteEventByIdAPI
 }
 
