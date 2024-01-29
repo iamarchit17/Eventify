@@ -3,7 +3,7 @@ const EventService = require('../services/event-services')
 
 function registerEvent(req, res, next){
     console.log("Controller received request ", req.body);
-    EventService.registerEvent(req.body,req.user)
+    EventService.registerEvent(req.body, req.user)
         .then(result=>{
             console.log("registerEvent Event Controller Result : ",result)
             res.status(result.statusCode)
@@ -11,8 +11,9 @@ function registerEvent(req, res, next){
         })
 }
 function updateEventById(req, res, next){
-    console.log("Controller received request ", req.body);
-    EventService.updateEventById(req.body)
+
+    console.log("Controller received request ", req.body, req.params);
+    EventService.updateEventById(req.params.eventId, req.body, req.user)
         .then(result=>{
             console.log("updateEventById Event Controller Result : ",result)
             res.status(result.statusCode)
@@ -31,8 +32,8 @@ function getEventList(req, res, next){
 }
 
 function getEventById(req, res, next){
-    console.log("Controller received request ", req.body);
-    EventService.getEventById(req.body)
+    console.log("Controller received request ", req.body, req.params);
+    EventService.getEventById(req.params.eventId)
         .then(result=>{
             console.log("getEventById Event Controller Result : ",result)
             res.status(result.statusCode)
@@ -42,7 +43,7 @@ function getEventById(req, res, next){
 
 function deleteEventById(req, res, next){
     console.log("Controller received request ", req.body);
-    EventService.deleteEventById(req.body)
+    EventService.deleteEventById(req.params.eventId, req.user)
         .then(result=>{
             console.log("deleteEventById Event Controller Result : ",result)
             res.status(result.statusCode)

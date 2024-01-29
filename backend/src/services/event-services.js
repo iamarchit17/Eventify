@@ -1,13 +1,12 @@
 const ApiResponse = require('../utils/api-response')
 const EventDb = require('../database/models/eventDb')
-const eventDb = require('../database/models/eventDb')
 
 //requires authorisation for creator
 async function registerEvent(payload, user){
 
     try{
-        console.log("The payload is " ,payload)
-        const event = new eventDb({
+        console.log("The payload is ", payload)
+        const event = new EventDb({
             name : payload.name,
             category: payload.category,
             coverImage: payload.coverImage,
@@ -19,7 +18,8 @@ async function registerEvent(payload, user){
             participants: [],
             charges: payload.charges,
             tnc: payload.tnc,
-            cid : user._id
+            cid : user._id,
+            cname : user.name
         })
         console.log( "The event information is :" ,event);
         const res = await event.save();
@@ -35,18 +35,14 @@ async function registerEvent(payload, user){
 //requires authorisation for event creator
 async function updateEventById(eventId, payload, user){
     try {
-        /*
-        //Write Code for authenticating the user
-        //Authorisation for creator is required
-
-        if (unauthorised) {
-            return new ApiResponse(401, 'Unauthorized: User Cannot Update This Event', null, null);
-        }
-
-        */
-        let event= await EventDb.findOne({eventId:{$eq: eventId}})
+        let event= await EventDb.findOne({_id:{$eq: eventId}})
         if(!event)
             return new ApiResponse(400, 'Event Not Registered', null, null)
+
+        if(event.cid != user._id){
+            return new ApiResponse(401, 'Unauthorised: You cannot update this event!', null, null);
+        }
+
         payload.eventId = eventId
         delete payload._id
 
@@ -60,39 +56,40 @@ async function updateEventById(eventId, payload, user){
 async function getEventList(){ 
     try {
         result = await EventDb.find({})
-        return new ApiResponse(200, "All events fetched", null, result) 
+        let listData = {count: result.length, data: result} 
+        return new ApiResponse(200, "Fetched Events list", null, listData)
     } catch (error) {
         return new ApiResponse(500, 'Exception While Fetching Event List!.', null, err.message)
     }
     
-    let listData = {count: result.length, data: result} 
-    return new ApiResponse(200, "Fetched Event list", null, listData)
+    
 }
 
-async function getEventById(eventId){
+async function getEventById(eventId) {
     try {
-        let event = await EventDb.findOne({eventId:{$eq: eventId}})
+        let event = await EventDb.findOne({_id:{$eq: eventId}})
         if(!event)
             return new ApiResponse(400, 'Event Not Found.', null, null)
         
         return new ApiResponse(200, "Event fetched Successfully.", null, event)  
     } catch (error) {
-        return new ApiResponse(500, 'Exception While updating Event!', null, error)
+        return new ApiResponse(500, 'Exception While Fetching Event!', null, error)
     }
+    
 }
-
 //requires auth for event creator
 async function deleteEventById(eventId, user){
     try {
-        /*
-            Write Code for authenticating the event creator
-        */
         let event = await EventDb.findOne({eventId:{$eq: eventId}})
         if(!event)
             return new ApiResponse(400, 'Event Not Found', null, null)
+
+        if(event.cid != user._id){
+           return new ApiResponse(401, 'Unauthorised: You cannot delete this event!', null, null);
+        }
         
-        await eventDb.deleteOne({eventId:{$eq: eventId}})
-        return new ApiResponse(200, "Event Deleted Successfully.", null, payload)  
+        await EventDb.deleteOne({_id:{$eq: eventId}})
+        return new ApiResponse(200, "Event Deleted Successfully.", null, null)  
     } catch (error) {
         return new ApiResponse(500, 'Exception While Deleting Event!', null, error)
     }
