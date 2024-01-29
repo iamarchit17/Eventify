@@ -44,10 +44,10 @@ const MainLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [drawerOpen]);
   return (
-    <Box sx={{ display: 'flex', width: '100%' }}>
+    <Box sx={{ display: 'flex', width: '100%', backgroundColor: '#151B23', color: 'white' }}>
       <Header open={open} handleDrawerToggle={handleDrawerToggle} />
       {/* <Drawer open={open} handleDrawerToggle={handleDrawerToggle} /> */}
-      <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
+      <Box component="main" sx={{ width: '100%', flexGrow: 1, p: { xs: 2, sm: 3 }, backgroundColor: '#151B23', color: 'white' }}>
         <Toolbar />
         <Breadcrumbs navigation={navigation} title />
         <Outlet />

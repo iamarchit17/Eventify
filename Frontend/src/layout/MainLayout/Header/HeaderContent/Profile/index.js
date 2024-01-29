@@ -169,7 +169,7 @@ const Profile = () => {
                               <Stack direction="row" spacing={1.25} alignItems="center">
                                 <Avatar alt="profile user" src={user.profilePhoto} sx={{ width: 32, height: 32 }} />
                                 <Stack>
-                                  <Typography variant="h6">{user.name}</Typography>
+                                  <Typography color={'white'} variant="h6">{user.name}</Typography>
                                 </Stack>
                               </Stack>
                             </Grid>
@@ -240,7 +240,7 @@ const Profile = () => {
           >
             <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
               {/* <Avatar alt="profile user" src={user.profilePhoto} sx={{ width: 32, height: 32 }} /> */}
-              <Typography variant="subtitle1">Login/Signup</Typography>
+              <Typography color={'white'} variant="subtitle1">Login/Signup</Typography>
             </Stack>
           </ButtonBase>
         </>}
