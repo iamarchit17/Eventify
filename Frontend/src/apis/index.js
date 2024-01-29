@@ -16,17 +16,40 @@ async function citiesAPI() {
     return response.data.data
 }
 
-//To Do : what to send as parameters , the db model ? If yes then how 
-//the function would be getting input and just return the response.
 async function registerAudienceAPI(audience) {
     const response  = await axiosInstance.post(BaseURL+'/api/audience',audience);
-    // console.log("The response of cities is " ,response.data.data)
+    console.log("The response of audience API" ,response)
     return response
 }
 
-// async function 
+async function getAudienceByIdAPI(audienceID){
+    const response  = await axiosInstance.get(BaseURL+'/api/audience/' + audienceID);
+    console.log("The response of get audience API" ,response)
+    return response
+}
+
+async function getAudienceListAPI(){
+    const response  = await axiosInstance.get(BaseURL+'/api/audience/');
+    console.log("The response of get list audience API" ,response)
+    return response
+}
+
+async function updateAudienceByIdAPI(audienceID){
+    const response  = await axiosInstance.put(BaseURL+'/api/audience/'+ audienceID);
+    console.log("The response of get list audience API" ,response)
+    return response
+}
+
+async function deleteAudienceByIdAPI(audienceID){
+    const response  = await axiosInstance.delete(BaseURL+'/api/audience/'+ audienceID);
+    console.log("The response of delete audience by id  API" ,response)
+    return response
+}
+
+
+
 
 export {
-    loginAPI ,categoriesAPI , citiesAPI ,registerAudienceAPI
+    loginAPI ,categoriesAPI , citiesAPI ,registerAudienceAPI,getAudienceByIdAPI , getAudienceListAPI , updateAudienceByIdAPI ,deleteAudienceByIdAPI
 }
 
